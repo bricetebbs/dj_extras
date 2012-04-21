@@ -5,6 +5,7 @@ import shutil
 import hashlib
 from datetime import datetime
 
+
 class FileStoreLocations(object):
     FILE_SYSTEM         = 0
     APP_INBOX           = 10
@@ -25,11 +26,11 @@ class FileStoreLocations(object):
     #          inbox:foo.txt is a file foo.txt in an app specific inbox
     #
     SIGNIFIERS = {
-        FILE_SYSTEM: "file",
+        FILE_SYSTEM : "file",
         APP_INBOX  :  "inbox",
         OBJECT_FOLDER :  "object",
         CLOUD_STORAGE_S3 :  "s3",
-        TEMP   : "tmp"
+        TEMP : "tmp"
     }
 
     @classmethod
@@ -48,8 +49,6 @@ class FileStoreLocations(object):
                     break
 
         return rpath, sig
-
-
 
 
 def get_path_with_folders(path, group, object_kind = None, folder = None):

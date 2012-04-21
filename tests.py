@@ -44,7 +44,6 @@ class TestWorkFlowStatus(WorkflowItemStatus):
     workflow_item = models.ForeignKey(TestWorkFlowItem)
 
 
-
 class NoteTest(TestCase):
     fixtures = ['users.json']
 

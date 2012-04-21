@@ -33,7 +33,6 @@ class ParameterTypes(object):
     )
 
 
-
 class PositiveNumberWidget(TextInput):
     """
         A widget for entering positive numbers. Using html5 'number'
@@ -140,9 +139,6 @@ def get_form_class_for_class(klass):
     meta = type('Meta', (),meta_dict)
     modelform_class = type('modelform', (forms.ModelForm,), {"Meta": meta})
     return modelform_class
-
-
-
 
 def create_form_field_with_parameter(parameter):
     field = None

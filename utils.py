@@ -17,7 +17,6 @@ def get_or_none(model, **kwargs):
         return None
 
 
-
 def update_model_from_dict(instance, d):
     """
     Update a model instance's fieled from the specified dictionary

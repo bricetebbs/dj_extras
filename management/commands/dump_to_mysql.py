@@ -1,9 +1,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
 
-
-from dj_extras.mysql_utils import dump_mysql_db
-
+from mysql_utils import dump_mysql_db
 
 class Command(BaseCommand):
     args = ''
