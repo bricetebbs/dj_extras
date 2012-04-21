@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 urlpatterns = patterns('',
 
 
@@ -6,8 +6,6 @@ urlpatterns = patterns('',
         regex = '^xyzzy/$',
         view =  'dj_extras.views.toggle_expert_mode',
         name = 'toggle_expert_mode'
-    )
-    ,
-
+    ),
 
 )
