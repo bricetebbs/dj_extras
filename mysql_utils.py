@@ -38,33 +38,27 @@ def dump_mysql_db(app_name, tables = None, dump_path = None):
     return dict(error=None, dump_path=dump_info['dump_path'])
 
 
-def load_mysql_db(app_name):
+def load_mysql_db(app_name, dump_path = None):
+    if not dump_path:
+        dump_path = "%s/%s.sql.gz" % (settings.MYSQL_DUMP_ROOT,app_name)
     load_info = dict(username = settings.DATABASES['default']['USER'],
                      password = settings.DATABASES['default']['USER'],
                      db_name = settings.DATABASES['default']['NAME'],
-                     dump_path = settings.MYSQL_DUMP_ROOT)
+                     dump_path = dump_path,
+                     app_name = app_name)
 
-    app_name_list= args
-
-    for app_name in app_name_list:
-        load_info['app_name'] = app_name
-
-        try:
-            get_app(app_name)
-        except ImproperlyConfigured:
-            raise CommandError('App "%s" does not exist' % app_name)
-
-        cmd = "gunzip < %(dump_path)s%(app_name)s | mysql -u %(username)s -p%(password)s %(db_name)s" % load_info
-
-        result = subprocess.check_call(cmd, shell=True)
-        if result:
-            raise CommandError("Load Failed")
-
-        load_info = dict(username = settings.DATABASES['default']['USER'],
-                         password = settings.DATABASES['default']['USER'],
-                         db_name = settings.DATABASES['default']['NAME'],
-                         dump_path = settings.MYSQL_DUMP_ROOT)
+    try:
+        get_app(app_name)
+    except ImproperlyConfigured:
+        return dict(error='App "%s" does not exist' % app_name)
 
 
+    cmd = "gunzip < %(dump_path)s | mysql -u %(username)s -p%(password)s %(db_name)s" % load_info
+
+    result = subprocess.check_call(cmd, shell=True)
+    if result:
+        return dict(error="Load Failed")
+
+    return dict(error=None, dump_path=load_info['dump_path'])
 
 

@@ -1,8 +1,8 @@
 
-from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from mysql_utils import load_mysql_db
+from dj_extras.mysql_utils import load_mysql_db
+
 
 class Command(BaseCommand):
     args = ''
