@@ -1,0 +1,13 @@
+dump.rdp
+.ec2hosts
+.vagrant
+.sass-cache/
+.DS_Store
+.idea/
+settings_local.py
+media/
+media
+build/
+logs/*.log
+*.pyc
+*.svn/

@@ -1,0 +1,15 @@
+
+FILE_NAME = "[a-zA-Z0-9\-\_\.]+"
+
+
+
+
+LEGAL_FILENAME_REGEX = '[a-zA-Z0-9 \._-]+$'
+LEGAL_PATHNAME_REGEX = '[a-zA-Z0-9 \._-]+$'
+
+LEGAL_FILENAME_URL_REGEX = LEGAL_FILENAME_REGEX[:-1]
+LEGAL_PATHNAME_URL_REGEX = LEGAL_PATHNAME_REGEX[:-1]
+
+UUID_URL_REGEX = '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}'
+
+HEX_REGEX = '[a-fA-F0-9]+$'
