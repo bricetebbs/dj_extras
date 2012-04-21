@@ -1,12 +1,10 @@
 
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
 
 import subprocess
 
 from django.db.models import get_app, get_models
 from django.core.exceptions import *
-import os
 
 
 def dump_mysql_db(app_name, tables = None, dump_path = None):
@@ -19,8 +17,6 @@ def dump_mysql_db(app_name, tables = None, dump_path = None):
         db_name = settings.DATABASES['default']['NAME'],
         dump_path = dump_path,
         app_name = app_name)
-
-    app = get_app(app_name)
 
     try:
         app = get_app(app_name)
