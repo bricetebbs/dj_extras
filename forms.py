@@ -1,9 +1,10 @@
 
 from django.forms.widgets import TextInput
 from django.db.models import PositiveIntegerField
-import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django import forms
+
+import models
 
 
 class ParameterTypes(object):
