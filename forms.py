@@ -7,32 +7,6 @@ from django import forms
 import models
 
 
-class ParameterTypes(object):
-    NONE = 0
-    FILE = 10
-    STRING = 20
-    INTEGER = 30
-    FLOAT = 40
-    BOOLEAN = 50
-    ENUM = 60
-    LABEL = 100
-    URL = 110
-    UUID = 120
-
-    CHOICES = (
-            (NONE, "None"),
-            (FILE, "FILE"),
-            (STRING, "String"),
-            (INTEGER, "Integer"),
-            (FLOAT, "Float"),
-            (BOOLEAN, "Bool"),
-            (ENUM, "Enum"),
-            (LABEL, "Label"),
-            (URL, "URL"),
-            (UUID, "UUID")
-    )
-
-
 class PositiveNumberWidget(TextInput):
     """
         A widget for entering positive numbers. Using html5 'number'
@@ -132,6 +106,11 @@ def custom_formfield_callback(f, **kwargs):
     return f.formfield(**kwargs)
 
 def get_form_class_for_class(klass):
+    """
+    A helper function for creating a model form class for a model on the fly. This is used with models (usually
+    part of an inheritance hierarchy) which define a function **get_editable_fields** which returns an iterable
+    of the field names which should be placed in the form.
+    """
     meta_dict = dict(model=klass)
     if hasattr(klass, 'get_editable_fields'):
         meta_dict['fields'] = klass.get_editable_fields()
@@ -139,6 +118,36 @@ def get_form_class_for_class(klass):
     meta = type('Meta', (),meta_dict)
     modelform_class = type('modelform', (forms.ModelForm,), {"Meta": meta})
     return modelform_class
+
+
+# Stuff using the ParameterTypes follows
+
+
+class ParameterTypes(object):
+    NONE = 0
+    FILE = 10
+    STRING = 20
+    INTEGER = 30
+    FLOAT = 40
+    BOOLEAN = 50
+    ENUM = 60
+    LABEL = 100
+    URL = 110
+    UUID = 120
+
+    CHOICES = (
+        (NONE, "None"),
+        (FILE, "FILE"),
+        (STRING, "String"),
+        (INTEGER, "Integer"),
+        (FLOAT, "Float"),
+        (BOOLEAN, "Bool"),
+        (ENUM, "Enum"),
+        (LABEL, "Label"),
+        (URL, "URL"),
+        (UUID, "UUID")
+        )
+
 
 def create_form_field_with_parameter(parameter):
     field = None
