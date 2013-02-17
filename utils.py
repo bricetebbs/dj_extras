@@ -1,11 +1,4 @@
 
-def get_array_from_raw(name, raw):
-    array = []
-    for term in raw.split('&'):
-        if term.startswith(name + '%5B%5D='):
-            array.append(term[len(name)+7:])
-    return array
-
 
 def get_or_none(model, **kwargs):
     """
@@ -52,3 +45,15 @@ def get_or_create_or_update(model_class, key_dict, values_dict):
             instance.save()
     return instance, created, updated
 
+
+
+
+def get_array_from_raw(name, raw):
+    """
+    For parsing out jquery array ajax stuff
+    """
+    array = []
+    for term in raw.split('&'):
+        if term.startswith(name + '%5B%5D='):
+            array.append(term[len(name)+7:])
+    return array

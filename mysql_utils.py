@@ -8,6 +8,11 @@ from django.core.exceptions import *
 
 
 def dump_mysql_db(app_name, tables = None, dump_path = None):
+    """
+    app_name - the name of the django app
+    tables - an optional list of tables to dump (defaults to all)
+    dump_path - location for the dumpfile (defaults to settings.MYSQL_DUMP_ROOT{/app_name}
+    """
 
     if not dump_path:
         dump_path = "%s/%s.sql.gz" % (settings.MYSQL_DUMP_ROOT,app_name)

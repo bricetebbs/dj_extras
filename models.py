@@ -211,7 +211,7 @@ class NoteHistory(HistoryTrack):
 
 
 #
-# SOme classes for making "Done" checkboxes which can be attached to other objects
+# Some classes for making "Done" checkboxes which can be attached to other objects
 # see tests.py for examples
 #
 class WorkflowItem(models.Model):
@@ -344,84 +344,6 @@ class InboxFileStoreTrackItem(models.Model):
     used = models.BooleanField()
     used_on = models.DateTimeField(auto_now=True)
     used_by = models.ForeignKey(User)
-
-#
-##
-##
-##
-#class ResultTableKind(models.Model):
-#    name=CleanLabelField()
-#
-#    def add_columns(self, columns):
-#        for idx,col in enumerate(columns):
-#            column, created, update = get_or_create_or_update(ResultTableColumnHeader,
-#                                                          dict(table=self,
-#                                                          name = col['name']),
-#
-#                                                          dict(
-#                                                              display_name = col['display_name'],
-#                                                              kind = col['kind'],
-#                                                              size_info = col.get('size_info', 0),
-#                                                              extra_info = col.get('extra_info', {}),
-#                                                              order = idx,
-#                                                              visibility= col.get('visibility', ResultTableVisibility.VISIBLE),
-#                                                              index = col.get('index', False)
-#                                                        )
-#                                                    )
-#            if col.get('enum_labels', []):
-#                for label in col['enum_labels']:
-#                    ResultTableEnumLabel.objects.get_or_create(column=column,
-#                                                    value = label[0],
-#                                                    display_name=label[1])
-
-#class ResultTableColumnHeader(models.Model):
-#    table = models.ForeignKey(ResultTableKind)
-#    name = CleanLabelField()
-#    display_name = CleanLabelField()
-#
-#    kind = models.PositiveIntegerField(choices=ParameterTypes.CHOICES, default=ParameterTypes.INTEGER)
-#    size_info = models.PositiveIntegerField(help_text="Mostly for text length 0 is LONGTEXT")
-#    extra_info = JSONField(help_text="For anything else that doesn't fit in this so far")
-#    index = models.PositiveSmallIntegerField(default=0)
-#
-#    visibility = models.PositiveSmallIntegerField(choices=ResultTableVisibility.CHOICES,
-#                                                  default=ResultTableVisibility.VISIBLE)
-#    order = models.PositiveIntegerField(default=0)
-#
-#    def to_dict(self):
-#        return dict(name=self.name,
-#                    display_name=self.display_name,
-#                    kind=self.kind,
-#                    size_info=self.size_info,
-#                    extra_info= self.extra_info,
-#                    index = self.index,
-#                    visibility = self.visibility,
-#                    enum_labels = [(x.value, x.display_name) for x in self.resulttableenumlabel_set.all()]
-#                )
-#
-#class ResultTableEnumLabel(models.Model):
-#    column = models.ForeignKey(ResultTableColumnHeader)
-#    display_name = CleanLabelField()
-#    value = models.PositiveSmallIntegerField()
-
-#class ResultTableMixin(models.Model):
-#
-#    # Maybe this just mixes into AnalysisFilterApplication or links to it
-#    #table_kind = models.ForeignKey(ResultTableKind, null=True, blank=True)
-#
-#
-#
-#    class Meta:
-#        abstract = True
-#
-#class ResultTable(ResultTableMixin):
-#    file_path = FileNameField()
-#
-#    def get_pathname(self):
-#        return self.file_path
-
-
-
 
 
 
