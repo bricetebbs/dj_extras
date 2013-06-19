@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
+import uuid
 
 from forms import ParameterTypes
 
@@ -15,6 +16,27 @@ MODEL_PATH_NAME_LENGTH = 500
 MODEL_FILE_NAME_LENGTH = 250
 MODEL_DIGEST_NAME_LENGTH = 64
 SHORT_MESSAGE_FIELD_LENGTH = 250
+MODEL_GUID_LENGTH = 64
+
+
+class UUIDField(models.CharField) :
+    """
+    Ripped from http://djangosnippets.org/snippets/1262/
+    """
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = kwargs.get('max_length', MODEL_GUID_LENGTH )
+        kwargs['blank'] = True
+        models.CharField.__init__(self, *args, **kwargs)
+
+    def pre_save(self, model_instance, add):
+        if add:
+            value = str(uuid.uuid4()) # uses a random uuid
+            setattr(model_instance, self.attname, value)
+            return value
+        else:
+            return super(models.CharField, self).pre_save(model_instance, add)
+
+
 
 class PercentageField(models.FloatField):
     """
