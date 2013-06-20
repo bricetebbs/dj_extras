@@ -17,8 +17,9 @@ def get_sqlite_term(info):
     return '"%s" %s' % (info['name'], get_type)
 
 
-from hn_utils.sequence_store import ucsc_browser_name_for_sequence_id
+
 def format_location(tup):
+    from hn_utils.sequence_store import ucsc_browser_name_for_sequence_id
     return "%s:%d-%d" % (ucsc_browser_name_for_sequence_id(tup[0]),tup[1], tup[2])
 
 def format_html_url(s):
