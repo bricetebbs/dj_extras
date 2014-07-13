@@ -4,7 +4,6 @@ from django.db.models import PositiveIntegerField, EmailField, URLField, TimeFie
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django import forms
 
-import models
 import datetime
 
 
