@@ -29,8 +29,6 @@ def update_model_from_dict(instance, d):
     else:
         return False
 
-
-
 def get_or_create_or_update(model_class, key_dict, values_dict):
     """
     If a model matching key_dict for model_class exists then update it with values dict
@@ -44,8 +42,6 @@ def get_or_create_or_update(model_class, key_dict, values_dict):
         if updated:
             instance.save()
     return instance, created, updated
-
-
 
 
 def get_array_from_raw(name, raw):
