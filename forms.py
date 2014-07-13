@@ -32,6 +32,7 @@ class URLWidget(TextInput):
 
 class DateWidget(TextInput):
     input_type = 'text'
+
     def __init__(self, *args, **kwargs):
         if not 'attrs' in kwargs:
             kwargs['attrs'] = {'class' : 'datepicker',
@@ -41,7 +42,7 @@ class DateWidget(TextInput):
 
     def render(self, name, value, attrs=None):
         if isinstance(value, datetime.date):
-            value=value.strftime("%d/%m/%Y")
+            value=value.strftime("%m/%d/%Y")
         return super(DateWidget, self).render(name, value, attrs)
 
 
@@ -53,6 +54,7 @@ class TimeWidget(TextInput):
 
 class DateTimeWidget(TextInput):
     input_type = 'datetime'
+
     def __init__(self, *args, **kwargs):
 
         super(DateTimeWidget, self).__init__(*args, **kwargs)
@@ -76,8 +78,6 @@ class PercentageWidget(TextInput):
         super(PercentageWidget, self).__init__(*args, **kwargs)
 
 
-forms.ModelChoiceField
-
 class DateFormField(forms.DateField):
     """
     A custom formfield we are going to use because we need to change the acceptable input formats
@@ -86,7 +86,7 @@ class DateFormField(forms.DateField):
 
     def __init__(self, *args, **kwargs):
         super(DateFormField, self).__init__(*args, **kwargs)
-        self.input_formats = ("%m/%d/%Y",) + (self.input_formats,)
+     #   self.input_formats = ("%d/%m/%Y",) + (self.input_formats,)
 
 
 class PercentageField(forms.FloatField):
@@ -146,8 +146,6 @@ def custom_formfield_callback(f, **kwargs):
                 attrs['min'] = v.limit_value
         if 'max' in attrs:
             return f.formfield(widget=PositiveIntegerWidget(attrs=attrs), **kwargs)
-        
-
     #
     # Fallthrough and just do the default
     #
@@ -165,7 +163,7 @@ def angular_formfield_callback(f, **kwargs):
         field = f.formfield(widget = EmailWidget, **kwargs)
     elif isinstance(f, URLField):
         field = f.formfield(widget = URLWidget, **kwargs)
-    elif isinstance(f, DateField):
+    elif isinstance(f, DateField) and not isinstance(f,DateTimeField): # wow datetime is derived from Date
         defaults = dict(form_class = DateFormField)
         defaults.update(kwargs)
         field = f.formfield(**defaults)
@@ -274,6 +272,7 @@ def create_form_class_with_parameter_list(param_list, name='dynform'):
             field_dict[x['name']] = field
 
     return type(name, (forms.BaseForm,), dict(base_fields=field_dict, formfield_callback = custom_formfield_callback ))
+
 
 def create_form_with_parameter_list(param_list, name='dynform', initial_dict={}):
 
