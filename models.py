@@ -363,7 +363,7 @@ class InboxFileStoreTrackFile(models.Model):
 class InboxFileStoreTrackItem(models.Model):
     file = models.ForeignKey(InboxFileStoreTrackFile)
     item = CleanLabelField() # could be sample id
-    used = models.BooleanField()
+    used = models.BooleanField(default = False)
     used_on = models.DateTimeField(auto_now=True)
     used_by = models.ForeignKey(User)
 
