@@ -12,6 +12,7 @@ from result_table import create_result_reader, create_result_writer
 
 class ModelToAnnotate(models.Model):
     foo = models.IntegerField(default=10)
+
     def __unicode__(self):
         return "Annotate Object %d" % self.foo
 
@@ -67,8 +68,6 @@ class NoteTest(TestCase):
 
             self.assertEqual(hl[1].changed_by, u)
             self.assertEqual("MORE", hl[1].old_txt)
-        
-
 
 class WorkflowTest(TestCase):
     fixtures = ['users.json']
@@ -92,6 +91,7 @@ class WorkflowTest(TestCase):
         
         self.assertEqual(tw.base_item,wi)
 
+
 class ResultTableTest(TestCase):
 
     def test_result_table(self):
@@ -104,9 +104,6 @@ class ResultTableTest(TestCase):
             dict(name='stringcol3', kind=ParameterTypes.STRING,  display_name='String C3', size_info = 40),
             dict(name='textcol4', kind=ParameterTypes.STRING,  display_name='Long String C4', size_info = 0),
         )
-
-
-
         records = (
             dict(intcol1=2, floatcol2=2.3, stringcol3=u'Eéaya', textcol4=u'Num is 2'),
             dict(intcol1=9, floatcol2=2.3, stringcol3=u'Mon Frere', textcol4=u'Num is 9'),
@@ -143,7 +140,6 @@ class ResultTableTest(TestCase):
         p = rr.get_result_tuples( (('intcol1', 'ASC'), ('stringcol3', 'DESC')), limit=2, offset=0)
 
         self.assertEqual(p,[(1, 2, 2.3, u'E\xe9aya', u'Num is 2'), (2, 9, 2.3, u'Mon Frere', u'Num is 9')])
-
 
         view = [dict(name='pair1', group=('intcol1', 'floatcol2'), format=u'%d -> %f', display_name='Pair 1'),
                 dict(name='stringcol3', format="-> %s -<"),

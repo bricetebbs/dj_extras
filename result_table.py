@@ -273,6 +273,7 @@ class ResultReadInterface(ResultInterface):
     def get_result_dicts(self, sort_terms=(), offset=0, limit=0):
         return [self._tuple_to_dict(x) for x in self.get_result_tuples(sort_terms=sort_terms, offset=offset, limit=limit)]
 
+
 class ResultWriteInterface(ResultInterface):
     def _setup_access(self):
         sql = "CREATE TABLE RESULT( %s );" % ", ".join([get_sqlite_term(x) for x in self.headers[1:]])
@@ -297,8 +298,10 @@ class ResultWriteInterface(ResultInterface):
     def flush(self):
         self.db.commit()
 
+
 def create_result_writer(file_path, headers):
     return ResultWriteInterface(file_path, headers)
+
 
 def create_result_reader(file_path, headers):
     return ResultReadInterface(file_path, headers)
