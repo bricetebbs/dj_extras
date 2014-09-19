@@ -1,0 +1,56 @@
+[
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "nikto", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2011-09-21 20:01:08-07:00",
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$something",
+            "email": "admin@northnitch.com",
+            "date_joined": "2011-09-09 08:52:46-07:00"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "bluetester", 
+            "first_name": "Blue", 
+            "last_name": "Tester", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-09-09 09:20:03-07:00",
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$something",
+            "email": "blue@northnitch.com", 
+            "date_joined": "2011-09-09 09:20:03-07:00"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "auth.user",
+        "fields": {
+            "username": "loseruser",
+            "first_name": "Loser",
+            "last_name": "User",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2011-09-09 09:20:03-07:00",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$something",
+            "email": "loser@northnitch.com",
+            "date_joined": "2011-09-09 09:20:03-07:00"
+        }
+    }
+]
