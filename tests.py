@@ -7,7 +7,7 @@ from models import WorkflowItem, WorkflowItemStatus
 
 from forms import ParameterTypes
 import os
-import pprint
+
 from result_table import create_result_reader, create_result_writer
 
 class ModelToAnnotate(models.Model):
