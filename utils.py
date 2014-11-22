@@ -1,4 +1,5 @@
 
+from django.conf import settings
 
 def get_or_none(model, **kwargs):
     """

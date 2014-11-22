@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
@@ -17,6 +18,7 @@ MODEL_FILE_NAME_LENGTH = 250
 MODEL_DIGEST_NAME_LENGTH = 64
 SHORT_MESSAGE_FIELD_LENGTH = 250
 MODEL_GUID_LENGTH = 64
+MODEL_SHA256_LENGTH = 64
 
 
 class UUIDField(models.CharField) :
@@ -37,6 +39,17 @@ class UUIDField(models.CharField) :
             return super(models.CharField, self).pre_save(model_instance, add)
 
 
+class BigIntegerAuto(models.AutoField):
+
+    def db_type(self, connection):
+        if connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
+            return 'bigint AUTO_INCREMENT'
+        if connection.settings_dict['ENGINE'] == 'django.db.backends.sqlite3':
+            return 'integer'
+        if connection.settings_dict['ENGINE'] == 'django.db.backends.postgresql_psycopg2':
+            return 'bigint'
+        else:
+            return super(BigIntegerAuto, self).db_type(self, connection)
 
 class PercentageField(models.FloatField):
     """
