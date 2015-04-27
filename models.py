@@ -81,6 +81,7 @@ class NameField(models.CharField):
 
         super(NameField, self).__init__(*args, **kwargs)
 
+
 class TitleField(models.CharField):
     """
     """
@@ -89,8 +90,6 @@ class TitleField(models.CharField):
             kwargs['max_length'] = TITLE_FIELD_LENGTH
 
         super(TitleField, self).__init__(*args, **kwargs)
-
-
 
 class ShortMessageField(models.CharField):
     """
@@ -102,7 +101,6 @@ class ShortMessageField(models.CharField):
             kwargs['max_length'] = SHORT_MESSAGE_FIELD_LENGTH
 
         super(ShortMessageField, self).__init__(*args, **kwargs)
-
 
 
 class ShortNameField(models.CharField):
@@ -152,6 +150,7 @@ class PathNameField(models.CharField):
         kwargs['validators'] = kwargs.get('validators',[]) + [RegexValidator(regex=LEGAL_PATHNAME_REGEX)]
         super(PathNameField, self).__init__(*args, **kwargs)
 
+
 class ChildClassViewer(models.Model):
     _item_subclass = CleanLabelField()
 
@@ -176,12 +175,14 @@ class TrackingChangesDateUser(models.Model):
     class Meta:
         abstract = True
 
+
 class TrackingCreatedDateUser(models.Model):
     created_by = models.ForeignKey(User, related_name="%(class)s_created_by")
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         abstract = True
+
 
 class TrackingFullDateUser(TrackingCreatedDateUser, TrackingChangesDateUser):
     class Meta:

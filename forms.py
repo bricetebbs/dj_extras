@@ -122,8 +122,6 @@ class SliderField(forms.FloatField):
         super(SliderField, self).__init__(*args, **kwargs)
 
 
-
-
 def angular_formfield_callback(f, **kwargs):
     """
     Applies our own assignment of widgets etc when using model forms
