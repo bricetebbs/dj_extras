@@ -70,6 +70,14 @@ class CleanLabelField(models.CharField):
         kwargs['validators'] = kwargs.get('validators',[]) + [RegexValidator(regex=LEGAL_FILENAME_REGEX)]
         super(CleanLabelField, self).__init__(*args, **kwargs)
 
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(CleanLabelField, self).deconstruct()
+        del kwargs["max_length"]
+        del kwargs["validators"]
+
+        return name, path, args, kwargs
+
 class NameField(models.CharField):
     """
     Used for the real names of things like people or places.
@@ -368,6 +376,9 @@ class OptionInfo(models.Model):
 # Stuff for managing the Inbox
 #
 class InboxFileStoreTrackFile(models.Model):
+    class Meta:
+        abstract = True
+
     filename = FileNameField()
     folder = CleanLabelField() # could be lab name
     created_on = models.DateTimeField(auto_now_add=True)
@@ -375,6 +386,9 @@ class InboxFileStoreTrackFile(models.Model):
 
 
 class InboxFileStoreTrackItem(models.Model):
+    class Meta:
+        abstract = True
+
     file = models.ForeignKey(InboxFileStoreTrackFile)
     item = CleanLabelField() # could be sample id
     used = models.BooleanField(default = False)
