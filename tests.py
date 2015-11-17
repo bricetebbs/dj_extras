@@ -163,4 +163,3 @@ class ResultTableTest(TestCase):
 class MyTest(TestCase):
     def no_crazy_talk(self):
         qs = ResultTable.objects.using('dummy').filter(kind=10)
-     #   print unicode(qs.query)
